@@ -1,7 +1,7 @@
 #include <bsp_bridge.h>
 
 BSP_HAL_ISLEM_DURUMU BSP_canInıt(){
-	CAN_FilterTypeDef canFiltre;
+	BSP_CAN_FILTRE canFiltre;
 
 	canFiltre.FilterBank = 0;
 	canFiltre.FilterActivation = ENABLE;
@@ -9,7 +9,7 @@ BSP_HAL_ISLEM_DURUMU BSP_canInıt(){
 	canFiltre.FilterIdHigh = 0x7FF << 5;
 	canFiltre.FilterFIFOAssignment = CAN_FILTER_FIFO0;
 	canFiltre.FilterMaskIdLow = 0;
-	canFiltre.FilterMaskIdHigh = 0x7ff;
+	canFiltre.FilterMaskIdHigh = 0x7ff<<5;
 	canFiltre.FilterMode = CAN_FILTERMODE_IDMASK;
 	canFiltre.FilterScale = CAN_FILTERSCALE_32BIT;
 	canFiltre.SlaveStartFilterBank = 1;
@@ -19,7 +19,6 @@ BSP_HAL_ISLEM_DURUMU BSP_canInıt(){
 	HAL_StatusTypeDef halStatus = HAL_CAN_Start(&hcan1);
 	return halStatusBspSwitch(halStatus);
 }
-
 
 BSP_HAL_ISLEM_DURUMU BSP_canSendMessage(uint32_t id, uint8_t DLC, uint8_t *pData){
 	CAN_TxHeaderTypeDef TxHeader;
@@ -32,8 +31,6 @@ BSP_HAL_ISLEM_DURUMU BSP_canSendMessage(uint32_t id, uint8_t DLC, uint8_t *pData
 	HAL_StatusTypeDef halStatus = HAL_CAN_AddTxMessage(&hcan1, &TxHeader, pData, &TxMailbox);
 	return halStatusBspSwitch(halStatus);
 }
-
-
 
 BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *canFilter){
 	canFiltre.FilterBank = canFilter->FilterBank;
