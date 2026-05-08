@@ -1,4 +1,4 @@
-#include <bsp_bridge.h>
+#include "bsp_bridge.h"
 
 BSP_HAL_ISLEM_DURUMU BSP_canInıt(){
 	BSP_CAN_FILTRE canFiltre;
@@ -32,17 +32,19 @@ BSP_HAL_ISLEM_DURUMU BSP_canSendMessage(uint32_t id, uint8_t DLC, uint8_t *pData
 	return halStatusBspSwitch(halStatus);
 }
 
-BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *canFilter){
-	canFiltre.FilterBank = canFilter->FilterBank;
-	canFiltre.FilterActivation = canFilter->FilterActivation;
-	canFiltre.FilterIdLow = canFilter->FilterIdLow;
-	canFiltre.FilterIdHigh = canFilter->FilterIdHigh;
-	canFiltre.FilterFIFOAssignment = canFilter->FilterFIFOAssignment;
-	canFiltre.FilterMaskIdLow = canFilter->FilterMaskIdLow;
-	canFiltre.FilterMaskIdHigh = canFilter->FilterMaskIdHigh;
-	canFiltre.FilterMode = canFilter->FilterMode;
-	canFiltre.FilterScale = canFilter->FilterScale;
-	canFiltre.SlaveStartFilterBank = canFilter->SlaveStartFilterBank;
+BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *bspFiltre){
+	CAN_FilterTypeDef canFiltre;
+
+	canFiltre.FilterBank = bspFiltre->FilterBank;
+	canFiltre.FilterActivation = bspFiltre->FilterActivation;
+	canFiltre.FilterIdLow = bspFiltre->FilterIdLow;
+	canFiltre.FilterIdHigh = bspFiltre->FilterIdHigh;
+	canFiltre.FilterFIFOAssignment = bspFiltre->FilterFIFOAssignment;
+	canFiltre.FilterMaskIdLow = bspFiltre->FilterMaskIdLow;
+	canFiltre.FilterMaskIdHigh = bspFiltre->FilterMaskIdHigh;
+	canFiltre.FilterMode = bspFiltre->FilterMode;
+	canFiltre.FilterScale = bspFiltre->FilterScale;
+	canFiltre.SlaveStartFilterBank = bspFiltre->SlaveStartFilterBank;
 
 	HAL_StatusTypeDef halStatus = HAL_CAN_ConfigFilter(&hcan1, &canFiltre);
 

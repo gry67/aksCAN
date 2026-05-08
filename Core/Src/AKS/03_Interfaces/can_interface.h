@@ -29,4 +29,4 @@ BSP_HAL_ISLEM_DURUMU BSP_canInıt();
 
 BSP_HAL_ISLEM_DURUMU BSP_canSendMessage(uint32_t id, uint8_t DLC, uint8_t *pData);
 
-void BSP_canSetFilter(BSP_CAN_FILTRE *canFilter);
+BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *bspFiltre);

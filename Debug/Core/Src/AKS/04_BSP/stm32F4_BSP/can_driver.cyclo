@@ -1,0 +1,3 @@
+../Core/Src/AKS/04_BSP/stm32F4_BSP/can_driver.c:3:22:BSP_canInıt	1
+../Core/Src/AKS/04_BSP/stm32F4_BSP/can_driver.c:23:22:BSP_canSendMessage	1
+../Core/Src/AKS/04_BSP/stm32F4_BSP/can_driver.c:35:22:BSP_canSetFilter	1

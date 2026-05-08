@@ -1,0 +1,119 @@
+#include "bsp_bridge.h"
+
+
+static volatile bool uart2Busy = false;
+static volatile bool uart1Busy = false;
+
+static volatile uint8_t telemetriAlindi = 0;
+
+/* EKRAN UART1 VE RX'İ KAPALI */
+/*TELEMETRİ UART2 ÜZERİNDEN GİDECEK*/
+
+
+BSP_HAL_ISLEM_DURUMU uartBaslat(){
+
+	HAL_StatusTypeDef sonuc = HAL_UART_Receive_IT(&huart2, &telemetriAlindi, 1);
+	return halStatusBspSwitch(sonuc);
+}
+
+
+
+
+BSP_HAL_ISLEM_DURUMU uartMesajGonder(uint8_t *veri, uint16_t boyut, uint8_t hangiUart){
+
+	switch (hangiUart) {
+		case 1:
+			{if (uart1Busy) {
+				return BSP_MESGUL;
+			}
+
+			uart1Busy = true;
+
+			HAL_StatusTypeDef sonuc = HAL_UART_Transmit_DMA(&huart1, veri, boyut);
+			if(sonuc != HAL_OK)
+			{
+				uart1Busy = false;
+			}
+
+			return halStatusBspSwitch(sonuc);
+			}
+
+		case 2:
+			{if (uart2Busy) {
+					return BSP_MESGUL;
+			}
+
+			uart2Busy = true;
+			HAL_StatusTypeDef sonuc = HAL_UART_Transmit_DMA(&huart2, veri, boyut);
+			if(sonuc != HAL_OK)
+			{
+			    uart2Busy = false;
+			}
+			return halStatusBspSwitch(sonuc);
+			}
+		default:
+			return BSP_HATA;
+
+	}
+
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+	if (huart == &huart2) {
+		//servis katmanına telemetri alındı bildirimi yapılacak
+		switch (telemetriAlindi) {
+			case 0x06:
+			{
+				/* basarili*/
+				break;
+			}
+			case 0x15:
+			{	/**basarisiz*/
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+
+		HAL_UART_Receive_IT(huart, &telemetriAlindi, 1);
+	}
+}
+
+
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+	if (huart==&huart2) {
+		uart2Busy = false;
+
+	}else if (huart == &huart1) {
+		uart1Busy = false;
+	}
+}
+
+
+
+
+
+
+
+
+/*
+BSP_HAL_ISLEM_DURUMU uartKesmeMesajGonder(uint8_t *veri, uint16_t boyut){
+
+	HAL_StatusTypeDef sonuc = HAL_UART_Transmit_IT(&huart2, veri, boyut);
+
+
+	halStatusBspSwitch(sonuc);
+}
+*/
+
+/*
+BSP_HAL_ISLEM_DURUMU uartMesajGonder(uint8_t *veri, uint16_t boyut){
+
+	HAL_StatusTypeDef sonuc = HAL_UART_Transmit(&huart2, veri , boyut, HAL_MAX_DELAY);
+	return halStatusBspSwitch(sonuc);
+}
+*/
+
