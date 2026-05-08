@@ -1,4 +1,0 @@
-../Core/Src/AKS/04_BSP/stm32F4_BSP/uart_driver.c:13:22:uartBaslat	1
-../Core/Src/AKS/04_BSP/stm32F4_BSP/uart_driver.c:22:22:uartMesajGonder	7
-../Core/Src/AKS/04_BSP/stm32F4_BSP/uart_driver.c:61:6:HAL_UART_RxCpltCallback	4
-../Core/Src/AKS/04_BSP/stm32F4_BSP/uart_driver.c:81:6:HAL_UART_TxCpltCallback	3
