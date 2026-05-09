@@ -1,10 +1,13 @@
 #include "bsp_bridge.h"
+#include "03_Interfaces/uart_interface.h"
+#include <usart.h>
+#include "uartRxService.h"
 
 
 static volatile bool uart2Busy = false;
 static volatile bool uart1Busy = false;
 
-static volatile uint8_t telemetriAlindi = 0;
+static volatile uint8_t telemetriGeriBildirimi = 0;
 
 /* EKRAN UART1 VE RX'İ KAPALI */
 /*TELEMETRİ UART2 ÜZERİNDEN GİDECEK*/
@@ -12,7 +15,7 @@ static volatile uint8_t telemetriAlindi = 0;
 
 BSP_HAL_ISLEM_DURUMU uartBaslat(){
 
-	HAL_StatusTypeDef sonuc = HAL_UART_Receive_IT(&huart2, &telemetriAlindi, 1);
+	HAL_StatusTypeDef sonuc = HAL_UART_Receive_IT(&huart2, &telemetriGeriBildirimi, 1);
 	return halStatusBspSwitch(sonuc);
 }
 
@@ -59,25 +62,11 @@ BSP_HAL_ISLEM_DURUMU uartMesajGonder(uint8_t *veri, uint16_t boyut, uint8_t hang
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-	if (huart == &huart2) {
-		//servis katmanına telemetri alındı bildirimi yapılacak
-		switch (telemetriAlindi) {
-			case 0x06:
-			{
-				/* basarili*/
-				break;
-			}
-			case 0x15:
-			{	/**basarisiz*/
-				break;
-			}
-			default:
-			{
-				break;
-			}
-		}
 
-		HAL_UART_Receive_IT(huart, &telemetriAlindi, 1);
+	if (huart == &huart2) {
+
+		telemetriGeriBildirimAlindi(*telemetriGeriBildirimi);
+		HAL_UART_Receive_IT(huart, &telemetriGeriBildirimi, 1);
 	}
 }
 
