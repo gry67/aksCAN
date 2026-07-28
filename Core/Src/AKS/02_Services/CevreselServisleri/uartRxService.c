@@ -6,8 +6,10 @@
  */
 
 /*BİTMEDİ BİTİR BUNU UNUTMA PATLARIZ*/
-void telemetriGeriBildirimAlindi(uint8_t *mesaj){
-	switch(mesaj){
+#include "headers/uartRxService.h"
+
+void telemetriGeriBildirimAlindi(uint8_t mesaj){
+	switch(*mesaj){
 		case 0x06:
 			{
 			/* basarili*/

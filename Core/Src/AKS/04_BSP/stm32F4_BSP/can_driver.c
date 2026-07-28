@@ -47,11 +47,48 @@ BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *bspFiltre){
 	canFiltre.FilterMode = bspFiltre->FilterMode;
 	canFiltre.FilterScale = bspFiltre->FilterScale;
 	canFiltre.SlaveStartFilterBank = bspFiltre->SlaveStartFilterBank;
-
 	HAL_StatusTypeDef halStatus = HAL_CAN_ConfigFilter(&hcan1, &canFiltre);
-
 	return halStatusBspSwitch(halStatus);
 }
 
 
+uint32_t kacCanMesajiBirikti(){
+	return HAL_CAN_GetRxFifoFillLevel(&hcan1, CAN_RX_FIFO0);
+}
+
+uint32_t kacKritikCanMesajiBirikti(){
+	return HAL_CAN_GetRxFifoFillLevel(&hcan1, CAN_RX_FIFO1);
+}
+
+
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+    CAN_RxHeaderTypeDef rxHeader;
+    uint8_t rxData[8];
+
+    HAL_CAN_GetRxMessage(hcan,
+                         CAN_RX_FIFO0,
+                         &rxHeader,
+                         rxData);
+
+    canMesajiIsle(rxHeader.StdId,
+                  rxHeader.DLC,
+                  rxData);
+}
+
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+    CAN_RxHeaderTypeDef rxHeader;
+    uint8_t rxData[8];
+
+    HAL_CAN_GetRxMessage(hcan,
+                         CAN_RX_FIFO1,
+                         &rxHeader,
+                         rxData);
+
+    canMesajiIsle(rxHeader.StdId,
+                  rxHeader.DLC,
+                  rxData);
+}
 

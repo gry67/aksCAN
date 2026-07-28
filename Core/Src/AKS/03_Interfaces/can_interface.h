@@ -1,11 +1,5 @@
-
-typedef enum
-{
-  BSP_BASARILI ,
-  BSP_HATA    ,
-  BSP_MESGUL  ,
-  BSP_ZAMANASIMI
-} BSP_HAL_ISLEM_DURUMU;
+#include "bsp_models.h"
+#include <stdint.h>
 
 typedef struct
 {
@@ -30,3 +24,6 @@ BSP_HAL_ISLEM_DURUMU BSP_canInıt();
 BSP_HAL_ISLEM_DURUMU BSP_canSendMessage(uint32_t id, uint8_t DLC, uint8_t *pData);
 
 BSP_HAL_ISLEM_DURUMU BSP_canSetFilter(BSP_CAN_FILTRE *bspFiltre);
+
+uint32_t kacCanMesajiBirikti();
+uint32_t kacKritikCanMesajiBirikti();

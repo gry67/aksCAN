@@ -1,4 +1,5 @@
 #include "04_BSP/stm32F4_BSP/bsp_bridge.h"
+#include "platform_hal.h"
 
 BSP_HAL_ISLEM_DURUMU halStatusBspSwitch(HAL_StatusTypeDef halStatus){
 	switch (halStatus) {

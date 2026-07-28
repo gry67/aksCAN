@@ -1,9 +1,6 @@
-#include "stm32f4xx_hal.h"
-#include "adc.h"
-#include "usart.h"
+#include "bsp_models.h"
 
 #define PEDAL_BUFFER_SIZE 32
 
-extern uint16_t pedalBuffer[PEDAL_BUFFER_SIZE];
-void dmalariBaslat(); /*gaz pedalı adc'sini başlatır*/
+void BSP_dmalariBaslat(); /*gaz pedalı adc'sini başlatır*/
 

@@ -8,6 +8,10 @@
 #ifndef SRC_AKS_02_SERVICES_HEADERS_UARTRXSERVICE_H_
 #define SRC_AKS_02_SERVICES_HEADERS_UARTRXSERVICE_H_
 
+
+#include "03_Interfaces/bsp_models.h"
+
+
 void telemetriGeriBildirimAlindi(uint8_t *mesaj);
 
 #endif /* SRC_AKS_02_SERVICES_HEADERS_UARTRXSERVICE_H_ */
