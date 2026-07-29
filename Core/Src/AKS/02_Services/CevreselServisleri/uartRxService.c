@@ -9,9 +9,13 @@
 #include "headers/uartRxService.h"
 
 void telemetriGeriBildirimAlindi(uint8_t *mesaj){
+
+
 	switch(*mesaj){
 		case 0x06:
 			{
+				static uint8_t veri[] = "0x06 geldi";
+				BSP_uartMesajGonder(veri, 10, 2);
 			/* basarili*/
 				break;
 			}
@@ -21,6 +25,9 @@ void telemetriGeriBildirimAlindi(uint8_t *mesaj){
 				break;
 			}
 		default:
+			static uint8_t veri[] = "\nbisey geldi ama anlamadim\n";
+
+			BSP_uartMesajGonder(veri, sizeof(veri)-1, 2);
 			break;
 
 	}

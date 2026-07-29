@@ -64,10 +64,10 @@ BSP_HAL_ISLEM_DURUMU BSP_uartMesajGonder(uint8_t *veri, uint16_t boyut, uint8_t 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if (huart == &huart2) {
-
-		telemetriGeriBildirimAlindi(telemetriGeriBildirimi);
+		telemetriGeriBildirimAlindi(&telemetriGeriBildirimi);
 		HAL_UART_Receive_IT(huart, &telemetriGeriBildirimi, 1);
 	}
+
 }
 
 

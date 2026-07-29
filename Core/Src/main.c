@@ -26,6 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "03_Interfaces/uart_interface.h"
 
 /* USER CODE END Includes */
 
@@ -101,9 +102,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  uint8_t yazi[] = "Selam canim\n";
+  BSP_uartBaslat();
+  BSP_uartMesajGonder(&yazi, 12, 2);
   while (1)
   {
     /* USER CODE END WHILE */
+
 
     /* USER CODE BEGIN 3 */
   }
