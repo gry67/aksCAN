@@ -1,6 +1,6 @@
 #include "03_Interfaces/can_interface.h"
-#include "03_Interfaces/bsp_models.h"
-
+#include "03_Interfaces/canMesajlarıListe.h"
+#include "02_Services/Models/aracDurumu.h"
 
 void canMesajiIsle(uint32_t id, uint8_t dlc, uint8_t *data)
 {

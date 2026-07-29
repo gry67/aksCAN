@@ -10,6 +10,7 @@
 
 
 #include "03_Interfaces/bsp_models.h"
+#include <stdint.h>
 
 
 void telemetriGeriBildirimAlindi(uint8_t *mesaj);

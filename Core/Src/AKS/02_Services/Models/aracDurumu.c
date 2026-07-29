@@ -9,3 +9,4 @@
 
 volatile motorSurucuDurumu motorSurucu;
 
+volatile bysDurumu bys;

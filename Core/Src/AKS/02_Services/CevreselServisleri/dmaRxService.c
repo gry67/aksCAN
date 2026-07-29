@@ -2,7 +2,7 @@
 
 
 
-void pedalAdcBufferDolduCallback(uint16_t pedalBuffer[PEDAL_BUFFER_SIZE]){
+void pedalAdcBufferDolduCallback(uint16_t *pedalBuffer[PEDAL_BUFFER_SIZE]){
 
 	uint16_t pedalOrtalamasi = pedalOrtalamasiAl(pedalBuffer);
 }
